@@ -1,36 +1,25 @@
-const express = require('express')
-const expressLayouts = require('express-ejs-layouts')
-const app = express()
-const mongoose = require('mongoose')
-const methodOverride = require('method-override')
-const flash = require('connect-flash');
-const session = require('express-session');
-const passport = require('passport')
-
-//PASSPORT CONFIG
-
-require('./config/passport')(passport);
-
-// DB CONFIG
-
-const db = require('./config/keys').MongoURI
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const session = require("express-session");
+const methodOverride = require("method-override");
 
 // MIDDLEWARE
 
-app.use(expressLayouts)
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
-app.use(methodOverride('_method'))
-app.use(express.urlencoded({ extended: false }))
-app.use(session({
-  secret: 'do you want ants?',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
-app.use(flash());
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride("_method"));
+app.use(
+  session({
+    secret: "do you want ants?!",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // MONGOOSE
+
+const db = require('./config/keys').MongoURI
 
 mongoose
 	.connect(db, {
@@ -43,35 +32,17 @@ mongoose.connection.once('open', () => {
 	console.log('connected to mongodb')
 })
 
-// GLOBAL VARIABLES
+// CONTROLLERS
+const gameController = require("./controllers/teamgames.js");
+app.use("/teamgames", gameController);
 
-app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg')
-  res.locals.error_msg = req.flash('error_msg')
-  res.locals.error = req.flash('error')
-  next();
-});
+const userController = require("./controllers/user.js");
+app.use("/user", userController);
 
+const sessionController = require("./controllers/session.js");
+app.use("/session", sessionController);
 
-// PASSPORT
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use((req, res, next) => {
-	app.locals.currentUser = req.user // currentUser now available in ALL views
-	app.locals.loggedIn = !!req.user // a boolean loggedIn now available in ALL views
-
-	next()
-})
-
-// ROUTES
-
-app.use('/', require('./routes/index'))
-
-app.use('/users', require('./routes/users'))
-
-// PORT & LISTEN
-
-const PORT = process.env.PORT || 3020
+// PORT LISTENER
+const PORT = process.env.PORT || 7000
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
