@@ -30,9 +30,15 @@
       <li class="nav-item">
         <a class="nav-link" href="/user/new">Signup</a>
       </li>
+      <li class="nav-item">
+				<form action="/session?_method=DELETE" method="POST">
+					<input class="nav-link" type="submit" value="Log out" />
+				  </form>
+				</li>
       </ul>
     </div>
     </nav>
+    
     <h1>Looking for Game!</h1>
     <form action="/teamgames" method="POST">
       <div class="form-group">

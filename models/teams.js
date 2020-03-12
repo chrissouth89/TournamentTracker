@@ -1,11 +1,13 @@
 const mongoose = require("mongoose")
+const Schema = mongoose.Schema;
 
-const TeamSchema = new mongoose.Schema({
-		teamName: String,
+const teamSchema = Schema({
+		name: String,
       	record: String,
-      	rank: String,
+		rank: String,
+		game: String,
 })
 
-const Team = mongoose.model("Team", TeamSchema)
+const Team = mongoose.model("Team", teamSchema)
 
 module.exports = Team

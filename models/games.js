@@ -1,17 +1,11 @@
 const mongoose = require("mongoose")
+const Schema = mongoose.Schema;
 
-const TeamGameSchema = new mongoose.Schema({
+const gameSchema = Schema({
 	name: { type: String, required: true },
 	description: { type: String, required: true },
-	teams: [
-		{
-		teamName: String,
-      	record: String,
-      	rank: String,
-		},
-	],
 })
 
-const TeamGame = mongoose.model("TeamGame", TeamGameSchema)
+const Game = mongoose.model("Game", gameSchema)
 
-module.exports = TeamGame
+module.exports = Game

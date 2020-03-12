@@ -7,8 +7,12 @@
         <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-rCA2D+D9QXuP2TomtQwd+uP50EHjpafN+wruul0sXZzX/Da7Txn4tB9aLMZV4DZm" crossorigin="anonymous">
 	</head>
 	<body>
+        <h1><%= team.name %></h1>
+        <p><%= team.record %></p>
+        <p><%= team.rank %></p>
+
         <h1>Add a Team</h1>
-        <form action='/teamgames/<%= teamgames.id %>/add?_method=PUT' method='POST'>
+        <form action='/teams/<%= teams.id %>/add?_method=PUT' method='POST'>
             Team Name:
             <input type='text' name='teamName' value='<%= games.teams.teamName %>'/>
 

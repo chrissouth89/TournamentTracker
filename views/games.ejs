@@ -8,13 +8,13 @@
 </head>
 <body>
 
-    <h1>Current Teams</h1>
+    <h1>Current Games</h1>
     <div class="container">
       <ul class="list-group">
-        <% for(let i = 0; i < teamgames.length; i++) { %>
+        <% for(let i = 0; i < games.length; i++) { %>
         <li class="list-group-item">
-          <a href="/teamgames/<%= teamgames[i].id%>"
-            ><%= teamgames[i].name %></a
+          <a href="/teamgames/<%= games[i].id%>"
+            ><%= games[i].name %></a
           >
         </li>
         <% } %>
