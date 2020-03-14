@@ -13,8 +13,10 @@
       <ul class="list-group">
         <% for(let i = 0; i < game.length; i++) { %>
         <li class="list-group-item">
-          <a href="/games/<%= game[i].id %>">
-            <%= game[i].name %></a>
+          <strong><h2><%= game[i].name %></strong></h2> 
+        </br>
+          <%= game[i].description %></a>
+            
         </li>
         <% } %>
       </ul>
