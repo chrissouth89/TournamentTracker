@@ -34,7 +34,7 @@ mongoose.connection.once("open", () => {
 
 // CONTROLLERS
 const gameController = require("./controllers/teamgames.js")
-app.use("/teamgames", gameController)
+app.use("/", gameController)
 
 const userController = require("./controllers/user.js")
 app.use("/user", userController)

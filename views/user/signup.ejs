@@ -7,47 +7,16 @@
 		<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-rCA2D+D9QXuP2TomtQwd+uP50EHjpafN+wruul0sXZzX/Da7Txn4tB9aLMZV4DZm" crossorigin="anonymous">
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" href="#"></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-		  
-			<div class="collapse navbar-collapse" id="navbarColor01">
-			  <ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="">Games</a>
-				  </li>
-				<li class="nav-item">
-					<a class="nav-link" href="">Teams</a>
-				  </li>
-				<li class="nav-item">
-				  <a class="nav-link" href="/teamgames/matchfinder">Find Matches</a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="/session/new">Login</a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="/user/new">Signup</a>
-				</li>
-				<li class="nav-item">
-				<form action="/session?_method=DELETE" method="POST">
-					<input class="nav-link" type="submit" value="Log out" />
-				  </form>
-				</li>
-				</li>
-			  </ul>
-			</div>
-		  </nav>
+		<%- include('../partials/nav.ejs') %>
 		<h1>Signup</h1>
 		<form action="/user" method="POST">
 			<div class="form-group">
-				<input type="email" class="form-control" placeholder="Enter email" style="max-width: 50%;"> <br />
+				<input name="username" type="text" class="form-control" placeholder="Enter email" style="max-width: 50%;"> <br />
 			</div>
 			<div class="form-group">
-				<input type="password" class="form-control" placeholder="Password" style="max-width: 50%;"> <br />
+				<input name="password" type="password" class="form-control" placeholder="Password" style="max-width: 50%;"> <br />
 			</div>
-			<button type="button" class="btn btn-primary">Create Account</button>
+			<button type="submit" class="btn btn-primary">Create Account</button>
 		</form>
 
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

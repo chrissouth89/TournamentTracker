@@ -7,15 +7,14 @@
     <title>Games</title>
 </head>
 <body>
-
+  <%- include('../views/partials/nav.ejs') %>
     <h1>Current Games</h1>
     <div class="container">
       <ul class="list-group">
-        <% for(let i = 0; i < games.length; i++) { %>
+        <% for(let i = 0; i < game.length; i++) { %>
         <li class="list-group-item">
-          <a href="/teamgames/<%= games[i].id%>"
-            ><%= games[i].name %></a
-          >
+          <a href="/games/<%= game[i].id %>">
+            <%= game[i].name %></a>
         </li>
         <% } %>
       </ul>

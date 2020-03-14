@@ -7,15 +7,18 @@
         <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-rCA2D+D9QXuP2TomtQwd+uP50EHjpafN+wruul0sXZzX/Da7Txn4tB9aLMZV4DZm" crossorigin="anonymous">
 	</head>
 	<body>
-        <h1><%= team.name %></h1>
-        <p><%= team.record %></p>
-        <p><%= team.rank %></p>
+        <%- include('./partials/nav.ejs') %>
 
         <h1>Add a Team</h1>
-        <form action='/teams/<%= teams.id %>/add?_method=PUT' method='POST'>
+        <form action='/teamgames/newteam<%= team.id %>/add?_method=PUT' method='POST'>
             Team Name:
-            <input type='text' name='teamName' value='<%= games.teams.teamName %>'/>
-
+            <input type='text' name='Team Name' value='<%= team.name %>'/>
+            Record:
+            <input type='text' name='Record' value='<%= team.record %>'/>
+            Rank:
+            <input type='text' name='Rank' value='<%= team.rank %>'/>
+            Game:
+            <input type='text' name='Game' value='<%= team.rank %>'/>
             <input type='submit' value='Edit'/>
         </form>
 

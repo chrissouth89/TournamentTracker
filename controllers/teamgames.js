@@ -2,63 +2,82 @@ const express = require("express")
 const router = express.Router()
 const session = require("express-session")
 
-const Team = require("../models/teams.js")
-const Game = require("../models/games.js")
+const team = require("../models/teams.js")
+const game = require("../models/games.js")
 
-router.get("/", (req, res) => {
-	Team.find({}, (err, team) => {
+router.get('/', (req, res) => {
+	res.render('new.ejs', {
+		currentUser: req.session.currentUser,
+	})
+})
+
+router.get("/teamgames", (req, res) => {
+	team.find({}, (err, team) => {
 		res.render("index.ejs", {
-			team,
+			team: team,
 			currentUser: req.session.currentUser,
 		})
 	})
+})
+
+router.get("/teamgames/teams/:teamid", (req, res) => {
+	res.render('edit.ejs')
 })
 
 router.get("/matchfinder", (req, res) => {
 	res.render("matchfinder.ejs", { currentUser: req.session.currentUser })
 })
 
-router.get("/:id/newteam", (req, res) => {
-	TeamGame.findById(req.params.id, (err, teams) => {
+router.get("/teamgames/newteam", (req, res) => {
+	team.findById(req.params.id, (err, team) => {
 		res.render("teams.ejs", {
-			teams,
+			team: team,
 			currentUser: req.session.currentUser,
 		})
 	})
 })
 
-router.post("/", (req, res) => {
-	Team.create(req.body, (err, result) => {
-		res.redirect("/teamgames")
+router.get('/games', (req, res) => {
+	game.find({}, (err, game) => {
+	res.render('games.ejs', {
+		game: game,
+		currentUser: req.session.currentUser,
+		})
 	})
 })
 
+// router.post("/teamgames", (req, res) => {
+// 	Team.create(req.body, (err, result) => {
+// 		res.redirect("/teamgames")
+// 	})
+// })
+
 router.get("/seed", (req, res) => {
-	Team.create([
+	team.create([
 		{
 			name: "Team Hangover",
 			record: "1-11",
 			rank: "Bronze",
-			game: "League of Legends"
+			
 		},
 		{
 			name: "Team Cloud 9",
 			record: "12-0",
 			rank: "Challenger",
-			game: "Call of Duty"
+		
 		},
 		{
 			name: "Team Grinding",
 			record: "6-6",
 			rank: "Masters",
-			game: "League of Legends"
+			
 		},
 	])
 	res.redirect("/teamgames")
 })
 
 router.get("/seedgames", (req, res) => {
-	Game.create([
+	game.create([
 		{
 			name: "League of Legends",
 			description: "Two teams of powerful champions, each with a unique design and playstyle, battle head-to-head across multiple battlefields and game modes.",
@@ -80,13 +99,13 @@ router.get("/seedgames", (req, res) => {
 			description: "A multiplayer online battle arena (MOBA) video game in which two teams of five players compete to collectively destroy a large structure defended by the opposing team known.",
 		},
 	])
-	res.redirect("/teamgames")
+	res.redirect("/games")
 })
 
 router.get("/:id", (req, res) => {
-	Team.findById(req.params.id, (err, foundTeams) => {
+	team.findById(req.params.id, (err, foundTeam) => {
 		res.render("teams.ejs", {
-			teams: foundTeams,
+			team: foundTeam,
 			currentUser: req.session.currentUser,
 		})
 	})
@@ -147,7 +166,7 @@ router.put("/:id/add", (req, res) => {
 	)
 })
 
-router.delete("/teamgames/teams/:id", (req, res) => {
+router.delete("/teamgames/:id", (req, res) => {
 	Team.findByIdAndDelete(req.params.id, (err, data) => {
 		res.redirect("/teamgames")
 	})
