@@ -40,7 +40,12 @@ router.post('/teamgames/newteam', (req, res) => {
         res.redirect('/teamgames');
     });
 })
-
+router.get('/teamgames/newgame', (req, res) => {
+	res.render('newgames.ejs', {
+		team: team,
+		currentUser: req.session.currentUser,
+	})
+})
 router.get('/games', (req, res) => {
 	game.find({}, (err, game) => {
 	res.render('games.ejs', {

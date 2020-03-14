@@ -12,6 +12,10 @@ npm i
 
 https://trello.com/b/1v3qQLEg/full-stack-development
 
-## Wireframe:
+## Wireframe
 
 https://github.com/chrissouth89/TournamentTracker/blob/master/images/Wireframe.jpg
+
+## Heroku
+
+https://tournament-tracker2.herokuapp.com/
