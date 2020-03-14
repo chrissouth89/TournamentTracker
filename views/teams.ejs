@@ -10,16 +10,16 @@
         <%- include('./partials/nav.ejs') %>
 
         <h1>Add a Team</h1>
-        <form action='/teamgames/newteam<%= team.id %>/add?_method=PUT' method='POST'>
+        <form action='/teamgames/newteam/' method='POST'>
             Team Name:
-            <input type='text' name='Team Name' value='<%= team.name %>'/>
+            <input type='text' name='name' value=''/>
             Record:
-            <input type='text' name='Record' value='<%= team.record %>'/>
+            <input type='text' name='record' value=''/>
             Rank:
-            <input type='text' name='Rank' value='<%= team.rank %>'/>
+            <input type='text' name='rank' value=''/>
             Game:
-            <input type='text' name='Game' value='<%= team.rank %>'/>
-            <input type='submit' value='Edit'/>
+            <input type='text' name='game' value=''/>
+            <input type='submit' value='Add Team'/>
         </form>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

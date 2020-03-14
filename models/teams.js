@@ -5,6 +5,7 @@ const teamSchema = Schema({
 		name: String,
       	record: String,
 		rank: String,
+		game: String,
 })
 
 const team = mongoose.model("Team", teamSchema)

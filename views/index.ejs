@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-rCA2D+D9QXuP2TomtQwd+uP50EHjpafN+wruul0sXZzX/Da7Txn4tB9aLMZV4DZm" crossorigin="anonymous">
-		<title>Main Page</title>
+		<title>Teams</title>
 	</head>
 	<body>
 		<%- include('../views/partials/nav.ejs') %>
@@ -12,7 +12,7 @@
 		  <h1>Current Teams</h1>
     <div class="container">
       <ul class="list-group">
-        <% for(let i = 0; i < team.length -1; i++) { %>
+        <% for(let i = 0; i < team.length; i++) { %>
         <li class="list-group-item">
           <a href="/teamgames/teams/<%= team[i].id%>"
 			><%= team[i].name %></a>
@@ -22,9 +22,11 @@
 			<%= team[i].rank %>
 			<br>
 			<%= team[i].game %>
-			<form action="/teams?_method=DELETE" method="POST">
-				<input class="nav-link" type="submit" value="Delete Team" />
+			<a href="/teamgames/<%=team[i].id; %>/edit" class="card-link">Edit Team</a>
+			<form action="/teamgames/<%= team[i].id; %>?_method=DELETE" method="POST">
+				<input type="submit" value="DELETE"/>
 			  </form>
+	  
         </li>
         <% } %>
       </ul>

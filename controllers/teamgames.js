@@ -5,6 +5,7 @@ const session = require("express-session")
 const team = require("../models/teams.js")
 const game = require("../models/games.js")
 
+// 
 router.get('/', (req, res) => {
 	res.render('new.ejs', {
 		currentUser: req.session.currentUser,
@@ -20,10 +21,6 @@ router.get("/teamgames", (req, res) => {
 	})
 })
 
-router.get("/teamgames/teams/:teamid", (req, res) => {
-	res.render('edit.ejs')
-})
-
 router.get("/matchfinder", (req, res) => {
 	res.render("matchfinder.ejs", { currentUser: req.session.currentUser })
 })
@@ -37,6 +34,13 @@ router.get("/teamgames/newteam", (req, res) => {
 	})
 })
 
+router.post('/teamgames/newteam', (req, res) => {
+	team.create(req.body, (error, createdTeam)=>{
+        console.log(createdTeam);
+        res.redirect('/teamgames');
+    });
+})
+
 router.get('/games', (req, res) => {
 	game.find({}, (err, game) => {
 	res.render('games.ejs', {
@@ -45,12 +49,6 @@ router.get('/games', (req, res) => {
 		})
 	})
 })
-
-// router.post("/teamgames", (req, res) => {
-// 	Team.create(req.body, (err, result) => {
-// 		res.redirect("/teamgames")
-// 	})
-// })
 
 router.get("/seed", (req, res) => {
 	team.create([
@@ -102,26 +100,8 @@ router.get("/seedgames", (req, res) => {
 	res.redirect("/games")
 })
 
-router.get("/:id", (req, res) => {
-	team.findById(req.params.id, (err, foundTeam) => {
-		res.render("teams.ejs", {
-			team: foundTeam,
-			currentUser: req.session.currentUser,
-		})
-	})
-})
-
-router.get("/:id", (req, res) => {
-	Game.findById(req.params.id, (err, foundGames) => {
-		res.render("games.ejs", {
-			games: foundGames,
-			currentUser: req.session.currentUser,
-		})
-	})
-})
-
 router.get("/:id/edit", (req, res) => {
-	Team.findById(req.params.id, (err, found) => {
+	team.findById(req.params.id, (err, found) => {
 		res.render("teams.ejs", {
 			teams: found,
 			currentUser: req.session.currentUser,
@@ -129,30 +109,35 @@ router.get("/:id/edit", (req, res) => {
 	})
 })
 
-router.get("/teamgames/teams/:id/:teamid", (req, res) => {
-	Team.findById(req.params.id, (err, found) => {
-		res.render("teams.ejs")
-	})
-})
-
-router.put("/:id/:teamid", (req, res) => {
-	Team.update(
-		req.params.teamid,
-		teams,
+router.get('/teamgames/:id/edit', (req,res) =>{
+	team.findById(req.params.id, (err, chosenTeam) => {
+	  console.log("chosenTeam", chosenTeam);
+	  res.render('edit.ejs',
 		{
-			$set: {
-				name: req.body.name,
-			},
-		},
-		{ new: true },
-		(err, updateUser) => {
-			res.redirect("/teamgames")
+		  team: chosenTeam,
+		  currentUser: req.session.currentUser,
 		}
-	)
-})
+	  )
+	})
+  })
+  
+
+  router.put('/teamgames/:id', (req, res)=>{
+		team.findByIdAndUpdate(req.params.id, req.body, (err, updatedModel)=>{
+		  res.redirect(/teamgames/)
+		});
+	});
+
+	
+//   router.put('/teamgames/:id/', (req, res)=>{
+// 	team.findByIdAndUpdate(req.params.id, req.body, {new:true}, (err,updateModel) =>{
+// 	  res.redirect('/teamgames')
+// 	})
+//   })
+  
 
 router.put("/:id/add", (req, res) => {
-	Team.findByIdAndUpdate(
+	team.findByIdAndUpdate(
 		req.params.id,
 		{
 			$push: {
@@ -167,7 +152,7 @@ router.put("/:id/add", (req, res) => {
 })
 
 router.delete("/teamgames/:id", (req, res) => {
-	Team.findByIdAndDelete(req.params.id, (err, data) => {
+	team.findByIdAndDelete(req.params.id, (err, data) => {
 		res.redirect("/teamgames")
 	})
 })
