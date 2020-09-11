@@ -13,7 +13,7 @@
   "author": "chris",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "bootstrap-icons": "^1.0.0-alpha2",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
